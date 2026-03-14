@@ -1,68 +1,181 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ratnasindhu Konkan Guide</title>
+<title>RatnaSindhu Konkan Travel Guide</title>
 
 <style>
 
 body{
-background:#0f172a;
+margin:0;
 font-family:Arial;
-text-align:center;
+background:#0f172a;
 color:white;
-padding-top:120px;
+text-align:center;
 }
 
-.box{
-background:#1e293b;
-width:350px;
-margin:auto;
-padding:40px;
-border-radius:12px;
+header{
+background:#020617;
+padding:30px;
+}
+
+header h1{
+margin:0;
+font-size:34px;
+color:#22c55e;
+}
+
+.hero{
+padding:80px 20px;
+}
+
+.hero h2{
+font-size:40px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:18px;
+color:#cbd5f5;
+margin-bottom:30px;
 }
 
 button{
-background:#22c55e;
+padding:14px 28px;
+font-size:18px;
 border:none;
-padding:12px 25px;
-margin:10px;
-font-size:16px;
-border-radius:6px;
+border-radius:8px;
 cursor:pointer;
+margin:10px;
 }
 
-button:hover{
+.download{
+background:#22c55e;
+color:white;
+}
+
+.download:hover{
 background:#16a34a;
 }
 
+.about{
+background:#3b82f6;
+color:white;
+}
+
+.section{
+padding:60px 20px;
+}
+
+.card-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+width:220px;
+border-radius:10px;
+}
+
+footer{
+background:#020617;
+padding:20px;
+margin-top:40px;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
+<header>
+<h1>RatnaSindhu Konkan Guide</h1>
+</header>
 
-<h1>Ratnasindhu Konkan Guide</h1>
+<div class="hero">
 
-<p>Explore Beaches • Temples • Waterfalls • Food</p>
+<h2>Explore Beautiful Konkan</h2>
 
-<button onclick="login()">Login</button>
+<p>Discover Beaches, Temples, Waterfalls & Local Food in Ratnagiri and Sindhudurg</p>
 
-<button onclick="register()">Register</button>
+<button class="download" onclick="download()">Download Android App</button>
+
+<button class="about" onclick="about()">About App</button>
 
 </div>
 
+<div class="section">
+
+<h2>Top Attractions</h2>
+
+<div class="card-container">
+
+<div class="card">
+<h3>Beaches</h3>
+<p>Ganpatipule, Tarkarli, Devgad</p>
+</div>
+
+<div class="card">
+<h3>Temples</h3>
+<p>Ganpatipule Temple, Kunkeshwar</p>
+</div>
+
+<div class="card">
+<h3>Waterfalls</h3>
+<p>Napne Waterfall, Amboli Falls</p>
+</div>
+
+<div class="card">
+<h3>Forts</h3>
+<p>Sindhudurg Fort, Ratnadurg Fort</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Why Use RatnaSindhu App?</h2>
+
+<p>
+• Explore Konkan tourism easily  
+<br><br>
+• Get travel planning suggestions  
+<br><br>
+• Find temples, beaches, waterfalls & food  
+<br><br>
+• Ask Konkan Chatbot for help  
+</p>
+
+</div>
+
+<footer>
+
+<p>RatnaSindhu Konkan Travel Guide © 2026</p>
+
+</footer>
+
 <script>
 
-function login(){
-window.location.href="https://play.google.com"
+function download(){
+
+window.location.href="app-debug.apk";
+
 }
 
-function register(){
-window.location.href="https://play.google.com"
+function about(){
+
+alert("RatnaSindhu is a Konkan tourism guide app created for exploring Ratnagiri and Sindhudurg.");
+
 }
 
 </script>
 
 </body>
+
 </html>
