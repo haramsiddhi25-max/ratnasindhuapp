@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>RatnaSindhu Konkan Tourism Guide</title>
 
@@ -8,20 +7,18 @@
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#0f172a;
+font-family:Arial;
+background:linear-gradient(135deg,#0f172a,#1e3a8a);
 color:white;
 text-align:center;
 }
 
 header{
+padding:30px;
 background:#020617;
-padding:25px;
 }
 
 header h1{
-margin:0;
-font-size:34px;
 color:#22c55e;
 }
 
@@ -31,13 +28,6 @@ padding:80px 20px;
 
 .hero h2{
 font-size:40px;
-margin-bottom:20px;
-}
-
-.hero p{
-font-size:18px;
-color:#cbd5f5;
-margin-bottom:35px;
 }
 
 button{
@@ -51,15 +41,6 @@ margin:10px;
 
 .download{
 background:#22c55e;
-color:white;
-}
-
-.download:hover{
-background:#16a34a;
-}
-
-.about{
-background:#3b82f6;
 color:white;
 }
 
@@ -81,10 +62,21 @@ width:220px;
 border-radius:10px;
 }
 
+.screens{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.screens img{
+width:250px;
+border-radius:10px;
+}
+
 footer{
-background:#020617;
 padding:20px;
-margin-top:40px;
+background:#020617;
 }
 
 </style>
@@ -101,15 +93,11 @@ margin-top:40px;
 
 <h2>Explore Beautiful Konkan</h2>
 
-<p>
-Discover Beaches, Temples, Waterfalls and Forts in Ratnagiri & Sindhudurg
-</p>
+<p>Discover Beaches, Temples, Waterfalls & Forts</p>
 
 <a href="https://github.com/haramsiddhi25-max/ratnasindhuapp/releases/download/v1.0/app-debug.apk">
 <button class="download">Download Android App</button>
 </a>
-
-<button class="about" onclick="about()">About App</button>
 
 </div>
 
@@ -121,22 +109,22 @@ Discover Beaches, Temples, Waterfalls and Forts in Ratnagiri & Sindhudurg
 
 <div class="card">
 <h3>Beaches</h3>
-<p>Ganpatipule, Tarkarli, Devgad</p>
+<p>Ganpatipule, Tarkarli</p>
 </div>
 
 <div class="card">
 <h3>Temples</h3>
-<p>Ganpatipule Temple, Kunkeshwar</p>
+<p>Ganpatipule Temple</p>
 </div>
 
 <div class="card">
 <h3>Waterfalls</h3>
-<p>Napne Waterfall, Amboli Falls</p>
+<p>Amboli Falls</p>
 </div>
 
 <div class="card">
 <h3>Forts</h3>
-<p>Sindhudurg Fort, Ratnadurg Fort</p>
+<p>Sindhudurg Fort</p>
 </div>
 
 </div>
@@ -145,23 +133,15 @@ Discover Beaches, Temples, Waterfalls and Forts in Ratnagiri & Sindhudurg
 
 <div class="section">
 
-<h2>Why Use RatnaSindhu App?</h2>
+<h2>App Screenshots</h2>
 
-<p>
+<div class="screens">
 
-✔ Explore Konkan tourism easily<br><br>
-
-✔ Travel planner suggestions<br><br>
-
-✔ Beaches, temples, forts and waterfalls guide<br><br>
-
-✔ Emergency contacts<br><br>
-
-✔ Multi-language support (English, Hindi, Marathi)<br><br>
-
-✔ Firebase Login and Register system
-
-</p>
+<img src="screen1.png">
+<img src="screen2.png">
+<img src="screen3.png">
+<img src="screen4.png">
+</div>
 
 </div>
 
@@ -171,14 +151,5 @@ Discover Beaches, Temples, Waterfalls and Forts in Ratnagiri & Sindhudurg
 
 </footer>
 
-<script>
-
-function about(){
-alert("RatnaSindhu is a Konkan Tourism Guide App developed to help tourists explore Ratnagiri and Sindhudurg easily.");
-}
-
-</script>
-
 </body>
-
 </html>
