@@ -7,7 +7,7 @@
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#0f172a;
 color:white;
 text-align:center;
@@ -15,7 +15,7 @@ text-align:center;
 
 header{
 background:#020617;
-padding:30px;
+padding:25px;
 }
 
 header h1{
@@ -36,11 +36,11 @@ margin-bottom:20px;
 .hero p{
 font-size:18px;
 color:#cbd5f5;
-margin-bottom:30px;
+margin-bottom:35px;
 }
 
 button{
-padding:14px 28px;
+padding:15px 30px;
 font-size:18px;
 border:none;
 border-radius:8px;
@@ -66,7 +66,7 @@ color:white;
 padding:60px 20px;
 }
 
-.card-container{
+.cards{
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
@@ -100,10 +100,10 @@ margin-top:40px;
 
 <h2>Explore Beautiful Konkan</h2>
 
-<p>Discover Beaches, Temples, Waterfalls & Local Food in Ratnagiri and Sindhudurg</p>
+<p>Discover Beaches, Temples, Waterfalls & Food in Ratnagiri and Sindhudurg</p>
 
 <a href="app-debug.apk" download>
-<button>Download Android App</button>
+<button class="download">Download Android App</button>
 </a>
 
 <button class="about" onclick="about()">About App</button>
@@ -114,7 +114,7 @@ margin-top:40px;
 
 <h2>Top Attractions</h2>
 
-<div class="card-container">
+<div class="cards">
 
 <div class="card">
 <h3>Beaches</h3>
@@ -145,13 +145,10 @@ margin-top:40px;
 <h2>Why Use RatnaSindhu App?</h2>
 
 <p>
-• Explore Konkan tourism easily  
-<br><br>
-• Get travel planning suggestions  
-<br><br>
-• Find temples, beaches, waterfalls & food  
-<br><br>
-• Ask Konkan Chatbot for help  
+Explore Konkan tourism easily <br><br>
+Travel planner and suggestions <br><br>
+Temples, beaches and waterfalls guide <br><br>
+Konkan chatbot help
 </p>
 
 </div>
@@ -164,20 +161,11 @@ margin-top:40px;
 
 <script>
 
-function download(){
-
-window.location.href="app-debug.apk";
-
-}
-
 function about(){
-
-alert("RatnaSindhu is a Konkan tourism guide app created for exploring Ratnagiri and Sindhudurg.");
-
+alert("RatnaSindhu is a Konkan tourism guide app developed to help tourists explore Ratnagiri and Sindhudurg easily.");
 }
 
 </script>
 
 </body>
-
 </html>
