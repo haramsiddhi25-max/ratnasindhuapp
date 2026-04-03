@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Business Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+    font-family:'Segoe UI', Arial;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+    padding:20px;
+}
+
+/* CARD */
+.container{
+    max-width:650px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#0d6efd;
+    margin-bottom:15px;
+}
+
+/* LABEL */
+label{
+    font-weight:600;
+    margin-top:12px;
+    display:block;
+}
+
+/* SECTION */
+.section{
+    margin-top:18px;
+    padding-top:10px;
+    border-top:1px dashed #ccc;
+}
+
+/* INPUT */
+input,select{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    transition:0.2s;
+}
+
+input:focus, select:focus{
+    border-color:#0d6efd;
+    outline:none;
+    box-shadow:0 0 5px rgba(13,110,253,0.3);
+}
+
+/* LANGUAGE LABEL */
+.lang{
+    font-size:12px;
+    font-weight:bold;
+    color:#666;
+    margin-top:6px;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    background: linear-gradient(45deg,#0d6efd,#084298);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+/* ERROR */
+#error{
+    color:red;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🏪 Add Business (व्यवसाय / व्यवसाय)</h2>
+
+<label>Region</label>
+<select id="region">
+<option value="">Select Region</option>
+<option value="ratnagiri">Ratnagiri</option>
+<option value="sindhudurg">Sindhudurg</option>
+</select>
+
+<div class="section">
+<label>Name</label>
+
+<div class="lang">English</div>
+<input id="name_en" placeholder="Business Name in English">
+
+<div class="lang">मराठी</div>
+<input id="name_mr" placeholder="व्यवसायाचे नाव">
+
+<div class="lang">हिंदी</div>
+<input id="name_hi" placeholder="व्यवसाय का नाम">
+</div>
+
+<div class="section">
+<label>Description</label>
+
+<div class="lang">English</div>
+<input id="desc_en" placeholder="Short description">
+
+<div class="lang">मराठी</div>
+<input id="desc_mr">
+
+<div class="lang">हिंदी</div>
+<input id="desc_hi">
+</div>
+
+<div class="section">
+<label>Category</label>
+
+<div class="lang">English</div>
+<input id="cat_en" placeholder="e.g. Hotel, Shop, Guide">
+
+<div class="lang">मराठी</div>
+<input id="cat_mr">
+
+<div class="lang">हिंदी</div>
+<input id="cat_hi">
+</div>
+
+<div class="section">
+<label>Address</label>
+
+<div class="lang">English</div>
+<input id="addr_en">
+
+<div class="lang">मराठी</div>
+<input id="addr_mr">
+
+<div class="lang">हिंदी</div>
+<input id="addr_hi">
+</div>
+
+<div class="section">
+<label>Contact</label>
+<input id="contact" placeholder="Phone number">
+
+<label>WhatsApp</label>
+<input id="whatsapp" placeholder="WhatsApp number">
+</div>
+
+<div class="section">
+<label>Images (2 Required)</label>
+<input id="img1" placeholder="Image URL 1 (required)">
+<input id="img2" placeholder="Image URL 2 (required)">
+</div>
+
+<div class="section">
+<label>Map URL</label>
+<input id="map" placeholder="Paste Google Map Link">
+</div>
+
+<button onclick="saveBusiness()">SAVE BUSINESS</button>
+
+<div id="error"></div>
+
+</div>
+
+<script>
+
+const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
+
+function get(id){
+    return document.getElementById(id).value.trim();
+}
+
+function validURL(url){
+    return url.startsWith("http://") || url.startsWith("https://");
+}
+
+function saveBusiness(){
+
+    let err = "";
+
+    if(!get("region")) err="Select region";
+
+    else if(!get("name_en")||!get("name_mr")||!get("name_hi"))
+        err="All names required";
+
+    else if(!get("desc_en")||!get("desc_mr")||!get("desc_hi"))
+        err="All descriptions required";
+
+    else if(!get("cat_en")||!get("cat_mr")||!get("cat_hi"))
+        err="All categories required";
+
+    else if(!get("addr_en")||!get("addr_mr")||!get("addr_hi"))
+        err="All address fields required";
+
+    else if(!get("contact") || get("contact").length<10)
+        err="Valid contact required";
+
+    else if(get("whatsapp") && get("whatsapp").length<10)
+        err="Invalid WhatsApp";
+
+    else if(!validURL(get("img1")) || !validURL(get("img2")))
+        err="Valid image URLs required";
+
+    else if(!validURL(get("map")))
+        err="Valid map URL required";
+
+    if(err){
+        document.getElementById("error").innerText = err;
+        return;
+    }
+
+    let region = get("region");
+
+    let data = {
+
+        name:{
+            en:get("name_en"),
+            mr:get("name_mr"),
+            hi:get("name_hi")
+        },
+
+        description:{
+            en:get("desc_en"),
+            mr:get("desc_mr"),
+            hi:get("desc_hi")
+        },
+
+        category:{
+            en:get("cat_en"),
+            mr:get("cat_mr"),
+            hi:get("cat_hi")
+        },
+
+        address:{
+            en:get("addr_en"),
+            mr:get("addr_mr"),
+            hi:get("addr_hi")
+        },
+
+        contact:get("contact"),
+        whatsapp:get("whatsapp"),
+
+        imageUrl1:get("img1"),
+        imageUrl2:get("img2"),
+
+        mapUrl:get("map")
+    };
+
+    fetch(`${FIREBASE}/Places/${region}/businesses.json`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    })
+    .then(()=>{
+        alert("Business Added Successfully ✅");
+    });
+}
+
+</script>
+
+</body>
+</html>

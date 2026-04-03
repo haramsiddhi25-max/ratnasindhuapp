@@ -1,102 +1,125 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RatnaSindhu Konkan Tourism Guide</title>
+<title>Ratnasindhu Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
+/* BODY */
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:linear-gradient(135deg,#0f172a,#1e3a8a);
-color:white;
-text-align:center;
+    margin:0;
+    font-family:'Segoe UI';
+    background:#f8fafc;
 }
 
-header{
-background:#020617;
-padding:30px;
+/* HEADER */
+.header{
+    background: linear-gradient(90deg,#2563eb,#4f46e5);
+    color:white;
+    padding:14px;
+    text-align:center;
+    font-size:20px;
+    font-weight:600;
+    position:relative;
 }
 
-header h1{
-margin:0;
-font-size:34px;
-color:#22c55e;
+.logout{
+    position:absolute;
+    right:15px;
+    top:10px;
+    background:#ef4444;
+    border:none;
+    color:white;
+    padding:5px 10px;
+    border-radius:6px;
 }
 
-.hero{
-padding:70px 20px;
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+    padding:12px;
 }
 
-.hero h2{
-font-size:40px;
-margin-bottom:10px;
-}
-
-.hero p{
-font-size:18px;
-opacity:0.9;
-}
-
-.downloadBtn{
-background:#22c55e;
-color:white;
-border:none;
-padding:16px 30px;
-font-size:18px;
-border-radius:8px;
-cursor:pointer;
-margin-top:20px;
-}
-
-.downloadBtn:hover{
-background:#16a34a;
-}
-
-.section{
-padding:60px 20px;
-}
-
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
+/* CARDS */
 .card{
-background:#1e293b;
-width:220px;
-padding:20px;
-border-radius:12px;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    padding:14px;
+    border-radius:14px;
+    color:white;
+    text-align:center;
+    font-size:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-.card h3{
-margin:10px 0;
-color:#22c55e;
+/* COLORS */
+.c1{background:linear-gradient(135deg,#34d399,#10b981);}
+.c2{background:linear-gradient(135deg,#a78bfa,#7c3aed);}
+.c3{background:linear-gradient(135deg,#60a5fa,#2563eb);}
+.c4{background:linear-gradient(135deg,#fbbf24,#f59e0b);}
+.c5{background:linear-gradient(135deg,#fb7185,#e11d48);}
+.c6{background:linear-gradient(135deg,#f472b6,#db2777);}
+.c7{background:linear-gradient(135deg,#22d3ee,#06b6d4);}
+
+.card h1{
+    margin:6px 0;
+    font-size:22px;
 }
 
-.screenshots{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
+/* PANEL */
+.panel{
+    background:white;
+    padding:14px;
+    border-radius:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
-.screenshots img{
-width:230px;
-border-radius:12px;
-box-shadow:0 6px 12px rgba(0,0,0,0.4);
+/* BUTTON GRID */
+.btn-grid{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:8px;
 }
 
-footer{
-background:#020617;
-padding:25px;
-margin-top:40px;
+/* BUTTON */
+.btn{
+    padding:9px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    font-size:13px;
+    transition:0.2s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+/* DATA */
+.item{
+    padding:7px;
+    border-bottom:1px solid #e2e8f0;
+    font-size:13px;
+}
+
+.delete{
+    float:right;
+    background:#ef4444;
+    color:white;
+    border:none;
+    border-radius:4px;
+    padding:2px 6px;
+}
+
+/* FEEDBACK */
+.feedback{
+    background:#f1f5f9;
+    padding:8px;
+    margin-top:6px;
+    border-radius:8px;
+    font-size:13px;
 }
 
 </style>
@@ -105,86 +128,158 @@ margin-top:40px;
 
 <body>
 
-<header>
-<h1>RatnaSindhu Konkan Travel Guide</h1>
-</header>
-
-<div class="hero">
-
-<h2>Explore the Beauty of Konkan</h2>
-
-<p>Discover beaches, temples, forts, waterfalls and plan your travel easily.</p>
-
-<a href="https://github.com/haramsiddhi25-max/ratnasindhuapp/releases/download/v1.0/app-debug.apk">
-
-<button class="downloadBtn">
-Download Android App
-</button>
-
-</a>
-
+<div class="header">
+🌴 Ratnasindhu Admin
+<button class="logout" onclick="logout()">Logout</button>
 </div>
 
-<div class="section">
-
-<h2>App Features</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>Beaches</h3>
-<p>Explore famous Konkan beaches.</p>
+<!-- STATS -->
+<div class="grid">
+<div class="card c1"><h3>Places</h3><h1 id="placesCount">0</h1></div>
+<div class="card c2"><h3>Activities</h3><h1 id="activityCount">0</h1></div>
+<div class="card c3"><h3>Hotels</h3><h1 id="hotelCount">0</h1></div>
+<div class="card c4"><h3>Business</h3><h1 id="businessCount">0</h1></div>
+<div class="card c5"><h3>Users</h3><h1 id="userCount">0</h1></div>
+<div class="card c6"><h3>Feedback</h3><h1 id="totalFeedback">0</h1></div>
+<div class="card c7"><h3>Rating</h3><h1 id="avgRating">0</h1></div>
 </div>
 
-<div class="card">
-<h3>Temples</h3>
-<p>Find historic and spiritual temples.</p>
-</div>
+<!-- MANAGE -->
+<div class="grid">
+<div class="panel">
+<h3>Manage Data</h3>
 
-<div class="card">
-<h3>Waterfalls</h3>
-<p>Discover beautiful waterfalls.</p>
-</div>
-
-<div class="card">
-<h3>Forts</h3>
-<p>Learn about historic Konkan forts.</p>
-</div>
-
-<div class="card">
-<h3>Travel Planner</h3>
-<p>Plan your Konkan trip easily.</p>
-</div>
-
-<div class="card">
-<h3>Chatbot</h3>
-<p>Ask Konkan travel questions.</p>
+<div class="btn-grid">
+<button class="btn" onclick="go('beach.html')">Beaches</button>
+<button class="btn" onclick="go('temple.html')">Temples</button>
+<button class="btn" onclick="go('fort.html')">Forts</button>
+<button class="btn" onclick="go('waterfall.html')">Waterfalls</button>
+<button class="btn" onclick="go('activity.html')">Activities</button>
+<button class="btn" onclick="go('hotel.html')">Hotels</button>
+<button class="btn" onclick="go('business.html')">Business</button>
 </div>
 
 </div>
-
 </div>
 
-<div class="section">
-
-<h2>App Screenshots</h2>
-
-<div class="screenshots">
-
-<img src="screen1.jpeg">
-<img src="screen2.jpeg">
-<img src="screen3.jpeg">
-<img src="screen4.jpeg">
-
+<!-- DATA -->
+<div class="grid">
+<div class="panel">
+<h3>All Data</h3>
+<div id="allData"></div>
+</div>
 </div>
 
+<!-- FEEDBACK -->
+<div class="grid">
+<div class="panel">
+<h3>Feedback</h3>
+<div id="feedbackList"></div>
+</div>
 </div>
 
-<footer>
+<script>
 
-<p>RatnaSindhu Konkan Tourism Guide © 2026</p>
+if(localStorage.getItem("admin") !== "true"){
+    window.location.href="login.html";
+}
 
-</footer>
+function logout(){
+    localStorage.removeItem("admin");
+    window.location.href="login.html";
+}
+
+function go(p){ window.location=p; }
+
+// STATIC
+let staticData = { places:40, activities:10, hotels:10, business:10 };
+
+// COUNTS
+fetch("https://konkantourguide-default-rtdb.firebaseio.com/Places.json")
+.then(r=>r.json())
+.then(data=>{
+    let places=0, act=0, hotel=0, business=0;
+
+    if(data){
+        for(let region in data){
+            if(data[region].beaches) places += Object.keys(data[region].beaches).length;
+            if(data[region].temples) places += Object.keys(data[region].temples).length;
+            if(data[region].forts) places += Object.keys(data[region].forts).length;
+            if(data[region].waterfalls) places += Object.keys(data[region].waterfalls).length;
+            if(data[region].activities) act += Object.keys(data[region].activities).length;
+            if(data[region].hotels) hotel += Object.keys(data[region].hotels).length;
+            if(data[region].businesses) business += Object.keys(data[region].businesses).length;
+        }
+    }
+
+    document.getElementById("placesCount").innerText = staticData.places + places;
+    document.getElementById("activityCount").innerText = staticData.activities + act;
+    document.getElementById("hotelCount").innerText = staticData.hotels + hotel;
+    document.getElementById("businessCount").innerText = staticData.business + business;
+});
+
+// USERS
+fetch("https://konkantourguide-default-rtdb.firebaseio.com/users.json")
+.then(r=>r.json())
+.then(data=>{
+    document.getElementById("userCount").innerText = data ? Object.keys(data).length : 5;
+});
+
+// FEEDBACK
+fetch("https://konkantourguide-default-rtdb.firebaseio.com/feedback.json")
+.then(r=>r.json())
+.then(data=>{
+    let html="", total=0, count=0;
+
+    if(data){
+        for(let k in data){
+            total += data[k].rating;
+            count++;
+            html += `<div class="feedback">⭐ ${data[k].rating}<br>${data[k].comment}</div>`;
+        }
+    }
+
+    document.getElementById("feedbackList").innerHTML = html;
+    document.getElementById("totalFeedback").innerText = count;
+    document.getElementById("avgRating").innerText = count ? (total/count).toFixed(1) : 0;
+});
+
+// DATA
+fetch("https://konkantourguide-default-rtdb.firebaseio.com/Places.json")
+.then(r=>r.json())
+.then(data=>{
+    let html="";
+
+    for(let region in data){
+        html += `<h4>${region}</h4>`;
+
+        for(let category in data[region]){
+            html += `<b>${category}</b>`;
+
+            for(let key in data[region][category]){
+                let name = data[region][category][key].name?.en || "No name";
+
+                html += `
+                <div class="item">
+                    ${name}
+                    <button class="delete" onclick="deleteItem('${region}','${category}','${key}')">X</button>
+                </div>`;
+            }
+        }
+    }
+
+    document.getElementById("allData").innerHTML = html;
+});
+
+function deleteItem(region,category,key){
+    if(!confirm("Delete?")) return;
+
+    fetch(`https://konkantourguide-default-rtdb.firebaseio.com/Places/${region}/${category}/${key}.json`,{
+        method:"DELETE"
+    }).then(()=>location.reload());
+}
+
+</script>
 
 </body>
 </html>

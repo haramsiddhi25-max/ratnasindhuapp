@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotel Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+    font-family:'Segoe UI', Arial;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+    padding:20px;
+}
+
+/* CARD */
+.container{
+    max-width:650px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#0d6efd;
+    margin-bottom:15px;
+}
+
+/* LABEL */
+label{
+    font-weight:600;
+    margin-top:12px;
+    display:block;
+}
+
+/* SECTION */
+.section{
+    margin-top:18px;
+    padding-top:10px;
+    border-top:1px dashed #ccc;
+}
+
+/* INPUT */
+input,select{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    transition:0.2s;
+}
+
+input:focus, select:focus{
+    border-color:#0d6efd;
+    outline:none;
+    box-shadow:0 0 5px rgba(13,110,253,0.3);
+}
+
+/* LANGUAGE LABEL */
+.lang{
+    font-size:12px;
+    font-weight:bold;
+    color:#666;
+    margin-top:6px;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    background: linear-gradient(45deg,#0d6efd,#084298);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+/* ERROR */
+#error{
+    color:red;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🏨 Add Hotel (हॉटेल / होटल)</h2>
+
+<label>Region</label>
+<select id="region">
+<option value="">Select Region</option>
+<option value="ratnagiri">Ratnagiri</option>
+<option value="sindhudurg">Sindhudurg</option>
+</select>
+
+<div class="section">
+<label>Name</label>
+
+<div class="lang">English</div>
+<input id="name_en" placeholder="Hotel Name in English">
+
+<div class="lang">मराठी</div>
+<input id="name_mr" placeholder="हॉटेलचे नाव">
+
+<div class="lang">हिंदी</div>
+<input id="name_hi" placeholder="होटल का नाम">
+</div>
+
+<div class="section">
+<label>About</label>
+
+<div class="lang">English</div>
+<input id="about_en" placeholder="Short description">
+
+<div class="lang">मराठी</div>
+<input id="about_mr">
+
+<div class="lang">हिंदी</div>
+<input id="about_hi">
+</div>
+
+<div class="section">
+<label>Facilities</label>
+
+<div class="lang">English</div>
+<input id="fac_en" placeholder="AC, WiFi, Parking...">
+
+<div class="lang">मराठी</div>
+<input id="fac_mr">
+
+<div class="lang">हिंदी</div>
+<input id="fac_hi">
+</div>
+
+<div class="section">
+<label>How To Reach</label>
+
+<div class="lang">English</div>
+<input id="reach_en">
+
+<div class="lang">मराठी</div>
+<input id="reach_mr">
+
+<div class="lang">हिंदी</div>
+<input id="reach_hi">
+</div>
+
+<div class="section">
+<label>Location</label>
+
+<div class="lang">English</div>
+<input id="loc_en">
+
+<div class="lang">मराठी</div>
+<input id="loc_mr">
+
+<div class="lang">हिंदी</div>
+<input id="loc_hi">
+</div>
+
+<div class="section">
+<label>Contact</label>
+<input id="contact" placeholder="Phone number">
+
+<label>WhatsApp</label>
+<input id="whatsapp" placeholder="WhatsApp number">
+
+<label>Rating</label>
+<input id="rating" placeholder="0 - 5">
+</div>
+
+<div class="section">
+<label>Images</label>
+<input id="img1" placeholder="Main Image URL (required)">
+<input id="img2" placeholder="Optional">
+<input id="img3" placeholder="Optional">
+</div>
+
+<div class="section">
+<label>Map URL</label>
+<input id="map" placeholder="Paste Google Map Link">
+</div>
+
+<button onclick="saveHotel()">SAVE HOTEL</button>
+
+<div id="error"></div>
+
+</div>
+
+<script>
+
+const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
+
+function get(id){ return document.getElementById(id).value.trim(); }
+
+function validURL(url){
+    return url.startsWith("http://") || url.startsWith("https://");
+}
+
+function saveHotel(){
+
+    let err="";
+
+    if(!get("region")) err="Select region";
+
+    else if(!get("name_en")||!get("name_mr")||!get("name_hi"))
+        err="All names required";
+
+    else if(!get("about_en")||!get("about_mr")||!get("about_hi"))
+        err="All about required";
+
+    else if(!get("fac_en")||!get("fac_mr")||!get("fac_hi"))
+        err="All facilities required";
+
+    else if(!get("reach_en")||!get("reach_mr")||!get("reach_hi"))
+        err="All reach fields required";
+
+    else if(!get("loc_en")||!get("loc_mr")||!get("loc_hi"))
+        err="All location fields required";
+
+    else if(!get("contact") || get("contact").length<10)
+        err="Valid phone required";
+
+    else if(!get("rating") || isNaN(get("rating")))
+        err="Valid rating required";
+
+    else if(parseFloat(get("rating"))>5)
+        err="Rating must be ≤5";
+
+    else if(!validURL(get("img1")))
+        err="Main image required";
+
+    else if(!validURL(get("map")))
+        err="Map link required";
+
+    if(err){
+        document.getElementById("error").innerText=err;
+        return;
+    }
+
+    let region=get("region");
+
+    let data={
+
+        name:{
+            en:get("name_en"),
+            mr:get("name_mr"),
+            hi:get("name_hi")
+        },
+
+        about:{
+            en:get("about_en"),
+            mr:get("about_mr"),
+            hi:get("about_hi")
+        },
+
+        facilities:{
+            en:get("fac_en"),
+            mr:get("fac_mr"),
+            hi:get("fac_hi")
+        },
+
+        howToReach:{
+            en:get("reach_en"),
+            mr:get("reach_mr"),
+            hi:get("reach_hi")
+        },
+
+        location:{
+            en:get("loc_en"),
+            mr:get("loc_mr"),
+            hi:get("loc_hi")
+        },
+
+        contact:get("contact"),
+        whatsapp:get("whatsapp"),
+        rating:get("rating"),
+
+        imageUrl1:get("img1"),
+        imageUrl2:get("img2"),
+        imageUrl3:get("img3"),
+
+        mapUrl:get("map")
+    };
+
+    fetch(`${FIREBASE}/Places/${region}/hotels.json`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    })
+    .then(()=>{
+        alert("Hotel Added Successfully ✅");
+    });
+}
+</script>
+
+</body>
+</html>

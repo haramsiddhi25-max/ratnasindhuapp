@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Fort</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+    font-family:'Segoe UI';
+    background: linear-gradient(135deg,#f3e7e9,#e3eeff);
+    padding:20px;
+}
+
+/* CARD */
+.form{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    max-width:650px;
+    margin:auto;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#5D4037;
+}
+
+/* SECTION TITLE */
+.lang-title{
+    margin-top:15px;
+    font-weight:bold;
+    color:#5D4037;
+}
+
+/* LABEL */
+label{
+    font-weight:600;
+    margin-top:12px;
+    display:block;
+}
+
+/* INPUT */
+input, select{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+/* HELP TEXT */
+small{
+    color:#666;
+    font-size:12px;
+}
+
+/* SECTION */
+.section{
+    margin-top:20px;
+    padding-top:10px;
+    border-top:1px dashed #ccc;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:14px;
+    background: linear-gradient(45deg,#5D4037,#8D6E63);
+    color:white;
+    border:none;
+    margin-top:20px;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="form">
+
+<h2>🏰 Add Fort (किल्ला जोडा / किला जोड़ें)</h2>
+
+<!-- REGION -->
+<label>Region (प्रदेश / क्षेत्र)</label>
+<select id="region">
+<option value="">Select Region</option>
+<option value="ratnagiri">Ratnagiri</option>
+<option value="sindhudurg">Sindhudurg</option>
+</select>
+<small>Select where this fort belongs</small>
+
+<!-- NAME -->
+<div class="section">
+<label>List Name</label>
+
+<div class="lang-title">English</div>
+<input id="name_en" placeholder="e.g. Ratnadurg Fort">
+
+<div class="lang-title">मराठी</div>
+<input id="name_mr" placeholder="उदा. रत्नदुर्ग किल्ला">
+
+<div class="lang-title">हिंदी</div>
+<input id="name_hi" placeholder="उदा. रत्नदुर्ग किला">
+
+<small>This appears in list page</small>
+</div>
+
+<!-- TITLE -->
+<div class="section">
+<label>Title (Detail Page)</label>
+
+<div class="lang-title">English</div>
+<input id="title_en">
+
+<div class="lang-title">मराठी</div>
+<input id="title_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="title_hi">
+</div>
+
+<!-- ABOUT -->
+<div class="section">
+<label>About / Description</label>
+
+<div class="lang-title">English</div>
+<input id="about_en" placeholder="History / overview">
+
+<div class="lang-title">मराठी</div>
+<input id="about_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="about_hi">
+</div>
+
+<!-- TIMINGS -->
+<div class="section">
+<label>Timings</label>
+
+<div class="lang-title">English</div>
+<input id="time_en">
+
+<div class="lang-title">मराठी</div>
+<input id="time_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="time_hi">
+</div>
+
+<!-- DIRECTIONS -->
+<div class="section">
+<label>Directions</label>
+
+<div class="lang-title">English</div>
+<input id="dir_en">
+
+<div class="lang-title">मराठी</div>
+<input id="dir_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="dir_hi">
+</div>
+
+<!-- FOOD -->
+<div class="section">
+<label>Food</label>
+
+<div class="lang-title">English</div>
+<input id="food_en">
+
+<div class="lang-title">मराठी</div>
+<input id="food_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="food_hi">
+</div>
+
+<!-- STAY -->
+<div class="section">
+<label>Stay</label>
+
+<div class="lang-title">English</div>
+<input id="stay_en">
+
+<div class="lang-title">मराठी</div>
+<input id="stay_mr">
+
+<div class="lang-title">हिंदी</div>
+<input id="stay_hi">
+</div>
+
+<!-- IMAGES -->
+<div class="section">
+<label>Images</label>
+<input id="img1" placeholder="Main image URL (required)">
+<input id="img2" placeholder="Second image URL">
+</div>
+
+<!-- MAP -->
+<div class="section">
+<label>Map URL</label>
+<input id="map" placeholder="Google Maps link">
+</div>
+
+<button onclick="saveFort()">SAVE FORT</button>
+
+<p class="error" id="err"></p>
+
+</div>
+
+<script>
+const FIREBASE="https://konkantourguide-default-rtdb.firebaseio.com";
+
+function get(id){
+    return document.getElementById(id).value.trim();
+}
+
+function validURL(url){
+    return url.startsWith("http");
+}
+
+function saveFort(){
+
+    let err="";
+
+    if(!get("region")) err="Select region";
+
+    else if(!get("name_en")||!get("name_mr")||!get("name_hi"))
+        err="Fill all names (EN/MR/HI)";
+
+    else if(!validURL(get("img1")))
+        err="Main image required";
+
+    else if(!validURL(get("map")))
+        err="Valid map URL required";
+
+    if(err){
+        document.getElementById("err").innerText=err;
+        return;
+    }
+
+    let data={
+        name:{ en:get("name_en"), mr:get("name_mr"), hi:get("name_hi") },
+        title:{ en:get("title_en"), mr:get("title_mr"), hi:get("title_hi") },
+        about:{ en:get("about_en"), mr:get("about_mr"), hi:get("about_hi") },
+        time:{ en:get("time_en"), mr:get("time_mr"), hi:get("time_hi") },
+        dir:{ en:get("dir_en"), mr:get("dir_mr"), hi:get("dir_hi") },
+        food:{ en:get("food_en"), mr:get("food_mr"), hi:get("food_hi") },
+        stay:{ en:get("stay_en"), mr:get("stay_mr"), hi:get("stay_hi") },
+        imageUrl1:get("img1"),
+        imageUrl2:get("img2"),
+        mapUrl:get("map")
+    };
+
+    fetch(`${FIREBASE}/Places/${get("region")}/forts.json`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    })
+    .then(()=>alert("Fort Added Successfully ✅"));
+}
+</script>
+
+</body>
+</html>

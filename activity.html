@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Activity</title>
+
+<style>
+body{
+    font-family:'Segoe UI', Arial;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+    padding:20px;
+}
+
+/* CARD */
+.form{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    max-width:520px;
+    margin:auto;
+    box-shadow:0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#2c3e50;
+    margin-bottom:15px;
+}
+
+/* SECTION */
+h3{
+    margin-top:20px;
+    color:#444;
+    border-left:4px solid #6f42c1;
+    padding-left:8px;
+}
+
+/* INPUT */
+input, select{
+    width:100%;
+    padding:11px;
+    margin:6px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    transition:0.2s;
+}
+
+input:focus, select:focus{
+    border-color:#6f42c1;
+    outline:none;
+    box-shadow:0 0 5px rgba(111,66,193,0.3);
+}
+
+/* LANGUAGE LABEL */
+.lang{
+    font-size:12px;
+    font-weight:bold;
+    color:#666;
+    margin-top:5px;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:13px;
+    background: linear-gradient(45deg,#6f42c1,#5936a2);
+    color:white;
+    border:none;
+    margin-top:15px;
+    border-radius:10px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+/* ERROR */
+.error{
+    color:red;
+    font-size:13px;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="form">
+
+<h2>🎯 Add Activity (क्रियाकलाप / गतिविधि)</h2>
+
+<select id="region">
+<option value="">Select Region</option>
+<option value="ratnagiri">Ratnagiri</option>
+<option value="sindhudurg">Sindhudurg</option>
+</select>
+
+<h3>Name</h3>
+<div class="lang">English</div>
+<input id="name_en" placeholder="Activity Name in English">
+
+<div class="lang">मराठी</div>
+<input id="name_mr" placeholder="क्रियाकलापाचे नाव">
+
+<div class="lang">हिंदी</div>
+<input id="name_hi" placeholder="गतिविधि का नाम">
+
+<h3>Description</h3>
+<div class="lang">English</div>
+<input id="desc_en" placeholder="Short description">
+
+<div class="lang">मराठी</div>
+<input id="desc_mr" placeholder="माहिती">
+
+<div class="lang">हिंदी</div>
+<input id="desc_hi" placeholder="विवरण">
+
+<h3>Activities Included</h3>
+<div class="lang">English</div>
+<input id="act_en" placeholder="What activities are included">
+
+<div class="lang">मराठी</div>
+<input id="act_mr">
+
+<div class="lang">हिंदी</div>
+<input id="act_hi">
+
+<h3>Price</h3>
+<div class="lang">English</div>
+<input id="price_en" placeholder="e.g. ₹500 per person">
+
+<div class="lang">मराठी</div>
+<input id="price_mr">
+
+<div class="lang">हिंदी</div>
+<input id="price_hi">
+
+<h3>Contact</h3>
+<input id="contact" placeholder="Phone number (10 digits)">
+
+<h3>How To Reach</h3>
+<div class="lang">English</div>
+<input id="reach_en">
+
+<div class="lang">मराठी</div>
+<input id="reach_mr">
+
+<div class="lang">हिंदी</div>
+<input id="reach_hi">
+
+<h3>Images (2 Required)</h3>
+<input id="img1" placeholder="Image URL 1 (required)">
+<input id="img2" placeholder="Image URL 2 (required)">
+
+<h3>Map URL</h3>
+<input id="map" placeholder="Paste Google Map Link">
+
+<button onclick="saveActivity()">SAVE ACTIVITY</button>
+
+<p class="error" id="err"></p>
+
+</div>
+
+<script>
+
+const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
+
+function get(id){
+    return document.getElementById(id).value.trim();
+}
+
+function validURL(url){
+    return url.startsWith("http://") || url.startsWith("https://");
+}
+
+function saveActivity(){
+
+    let err = "";
+
+    if(!get("region")) err = "Select region";
+
+    else if(!get("name_en") || !get("name_mr") || !get("name_hi"))
+        err = "All names required";
+
+    else if(!get("desc_en") || !get("desc_mr") || !get("desc_hi"))
+        err = "All descriptions required";
+
+    else if(!get("act_en") || !get("act_mr") || !get("act_hi"))
+        err = "All activity fields required";
+
+    else if(!get("price_en") || !get("price_mr") || !get("price_hi"))
+        err = "All price fields required";
+
+    else if(!get("contact") || get("contact").length < 10)
+        err = "Valid contact required";
+
+    else if(!get("reach_en") || !get("reach_mr") || !get("reach_hi"))
+        err = "All how to reach fields required";
+
+    else if(!validURL(get("img1")) || !validURL(get("img2")))
+        err = "Valid image URLs required";
+
+    else if(!validURL(get("map")))
+        err = "Valid map URL required";
+
+    if(err){
+        document.getElementById("err").innerText = err;
+        return;
+    }
+
+    let region = get("region");
+
+    let data = {
+
+        name:{
+            en:get("name_en"),
+            mr:get("name_mr"),
+            hi:get("name_hi")
+        },
+
+        description:{
+            en:get("desc_en"),
+            mr:get("desc_mr"),
+            hi:get("desc_hi")
+        },
+
+        activitiesIncluded:{
+            en:get("act_en"),
+            mr:get("act_mr"),
+            hi:get("act_hi")
+        },
+
+        price:{
+            en:get("price_en"),
+            mr:get("price_mr"),
+            hi:get("price_hi")
+        },
+
+        contact:get("contact"),
+
+        howToReach:{
+            en:get("reach_en"),
+            mr:get("reach_mr"),
+            hi:get("reach_hi")
+        },
+
+        imageUrl1:get("img1"),
+        imageUrl2:get("img2"),
+
+        mapUrl:get("map")
+    };
+
+    fetch(`${FIREBASE}/Places/${region}/activities.json`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    })
+    .then(()=>{
+        alert("Activity Added Successfully ✅");
+    });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Beach</title>
+
+<style>
+body{
+    font-family:'Segoe UI', Arial;
+    background: linear-gradient(135deg,#eef2f3,#dfe9f3);
+    padding:20px;
+}
+
+/* CARD */
+.form{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    max-width:520px;
+    margin:auto;
+    box-shadow:0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:#2c3e50;
+    margin-bottom:15px;
+}
+
+/* SECTION */
+h3{
+    margin-top:20px;
+    color:#444;
+    border-left:4px solid #17a2b8;
+    padding-left:8px;
+}
+
+/* INPUT */
+input, select{
+    width:100%;
+    padding:11px;
+    margin:6px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    transition:0.2s;
+}
+
+input:focus, select:focus{
+    border-color:#17a2b8;
+    outline:none;
+    box-shadow:0 0 5px rgba(23,162,184,0.3);
+}
+
+/* LANGUAGE LABEL */
+.lang{
+    font-size:12px;
+    font-weight:bold;
+    color:#666;
+    margin-top:5px;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:13px;
+    background: linear-gradient(45deg,#17a2b8,#138496);
+    color:white;
+    border:none;
+    margin-top:15px;
+    border-radius:10px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+/* ERROR */
+.error{
+    color:red;
+    font-size:13px;
+    text-align:center;
+    margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="form">
+
+<h2>🏖️ Add Beach (समुद्रकिनारा / समुद्र तट)</h2>
+
+<select id="region">
+<option value="">Select Region</option>
+<option value="ratnagiri">Ratnagiri</option>
+<option value="sindhudurg">Sindhudurg</option>
+</select>
+
+<h3>Name</h3>
+<div class="lang">English</div>
+<input id="name_en" placeholder="Beach Name in English">
+
+<div class="lang">मराठी</div>
+<input id="name_mr" placeholder="समुद्रकिनाऱ्याचे नाव">
+
+<div class="lang">हिंदी</div>
+<input id="name_hi" placeholder="समुद्र तट का नाम">
+
+<h3>Description</h3>
+<div class="lang">English</div>
+<input id="desc_en" placeholder="Short description">
+
+<div class="lang">मराठी</div>
+<input id="desc_mr" placeholder="माहिती">
+
+<div class="lang">हिंदी</div>
+<input id="desc_hi" placeholder="विवरण">
+
+<h3>Best Time</h3>
+<div class="lang">English</div>
+<input id="time_en" placeholder="Best time to visit">
+
+<div class="lang">मराठी</div>
+<input id="time_mr">
+
+<div class="lang">हिंदी</div>
+<input id="time_hi">
+
+<h3>Food Nearby</h3>
+<div class="lang">English</div>
+<input id="food_en">
+
+<div class="lang">मराठी</div>
+<input id="food_mr">
+
+<div class="lang">हिंदी</div>
+<input id="food_hi">
+
+<h3>Stay Options</h3>
+<div class="lang">English</div>
+<input id="stay_en">
+
+<div class="lang">मराठी</div>
+<input id="stay_mr">
+
+<div class="lang">हिंदी</div>
+<input id="stay_hi">
+
+<h3>Images (URL only)</h3>
+<input id="img1" placeholder="Image URL 1 (required)">
+<input id="img2" placeholder="Image URL 2 (required)">
+
+<h3>Map URL</h3>
+<input id="map" placeholder="Paste Google Map Link">
+
+<button onclick="saveBeach()">SAVE BEACH</button>
+
+<p class="error" id="err"></p>
+
+</div>
+
+<script>
+
+const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
+
+function get(id){
+    return document.getElementById(id).value.trim();
+}
+
+function validURL(url){
+    return url.startsWith("http://") || url.startsWith("https://");
+}
+
+function saveBeach(){
+
+    let err = "";
+
+    if(!get("region")) err = "Select region";
+
+    else if(!get("name_en") || !get("name_mr") || !get("name_hi"))
+        err = "All names required";
+
+    else if(!get("desc_en") || !get("desc_mr") || !get("desc_hi"))
+        err = "All descriptions required";
+
+    else if(!get("time_en") || !get("time_mr") || !get("time_hi"))
+        err = "All best time fields required";
+
+    else if(!get("food_en") || !get("food_mr") || !get("food_hi"))
+        err = "All food fields required";
+
+    else if(!get("stay_en") || !get("stay_mr") || !get("stay_hi"))
+        err = "All stay fields required";
+
+    else if(!validURL(get("img1")) || !validURL(get("img2")))
+        err = "Valid image URLs required";
+
+    else if(!validURL(get("map")))
+        err = "Valid map URL required";
+
+    if(err){
+        document.getElementById("err").innerText = err;
+        return;
+    }
+
+    let region = get("region");
+
+    let data = {
+
+        name:{
+            en:get("name_en"),
+            mr:get("name_mr"),
+            hi:get("name_hi")
+        },
+
+        description:{
+            en:get("desc_en"),
+            mr:get("desc_mr"),
+            hi:get("desc_hi")
+        },
+
+        bestTime:{
+            en:get("time_en"),
+            mr:get("time_mr"),
+            hi:get("time_hi")
+        },
+
+        foodNearby:{
+            en:get("food_en"),
+            mr:get("food_mr"),
+            hi:get("food_hi")
+        },
+
+        stayOptions:{
+            en:get("stay_en"),
+            mr:get("stay_mr"),
+            hi:get("stay_hi")
+        },
+
+        imageUrl1:get("img1"),
+        imageUrl2:get("img2"),
+        mapUrl:get("map")
+    };
+
+    fetch(`${FIREBASE}/Places/${region}/beaches.json`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    })
+    .then(()=>{
+        alert("Beach Added Successfully ✅");
+        document.getElementById("form")?.reset();
+    });
+
+}
+
+</script>
+
+</body>
+</html>
