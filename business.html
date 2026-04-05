@@ -9,12 +9,18 @@ body{
     font-family:'Segoe UI', Arial;
     background: linear-gradient(135deg,#eef2f3,#dfe9f3);
     padding:20px;
+    margin:0;
+}
+
+/* 🔥 FIX FOR LAPTOP (CENTER CONTENT) */
+.wrapper{
+    max-width:900px;
+    margin:auto;
 }
 
 /* CARD */
 .container{
-    max-width:650px;
-    margin:auto;
+    width:100%;
     background:white;
     padding:25px;
     border-radius:15px;
@@ -50,6 +56,7 @@ input,select{
     border-radius:8px;
     border:1px solid #ccc;
     transition:0.2s;
+    font-size:14px;
 }
 
 input:focus, select:focus{
@@ -89,11 +96,20 @@ button:hover{
     text-align:center;
     margin-top:10px;
 }
+
+/* 📱 MOBILE FIX */
+@media(max-width:600px){
+    .wrapper{
+        padding:0 5px;
+    }
+}
 </style>
 
 </head>
 
 <body>
+
+<div class="wrapper">
 
 <div class="container">
 
@@ -183,6 +199,8 @@ button:hover{
 
 </div>
 
+</div>
+
 <script>
 
 const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
@@ -233,37 +251,14 @@ function saveBusiness(){
     let region = get("region");
 
     let data = {
-
-        name:{
-            en:get("name_en"),
-            mr:get("name_mr"),
-            hi:get("name_hi")
-        },
-
-        description:{
-            en:get("desc_en"),
-            mr:get("desc_mr"),
-            hi:get("desc_hi")
-        },
-
-        category:{
-            en:get("cat_en"),
-            mr:get("cat_mr"),
-            hi:get("cat_hi")
-        },
-
-        address:{
-            en:get("addr_en"),
-            mr:get("addr_mr"),
-            hi:get("addr_hi")
-        },
-
+        name:{ en:get("name_en"), mr:get("name_mr"), hi:get("name_hi") },
+        description:{ en:get("desc_en"), mr:get("desc_mr"), hi:get("desc_hi") },
+        category:{ en:get("cat_en"), mr:get("cat_mr"), hi:get("cat_hi") },
+        address:{ en:get("addr_en"), mr:get("addr_mr"), hi:get("addr_hi") },
         contact:get("contact"),
         whatsapp:get("whatsapp"),
-
         imageUrl1:get("img1"),
         imageUrl2:get("img2"),
-
         mapUrl:get("map")
     };
 
