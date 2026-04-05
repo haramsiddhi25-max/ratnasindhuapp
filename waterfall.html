@@ -8,6 +8,13 @@ body{
     font-family:'Segoe UI', Arial;
     background: linear-gradient(135deg,#eef2f3,#dfe9f3);
     padding:20px;
+    margin:0;
+}
+
+/* 🔥 WRAPPER FIX */
+.wrapper{
+    max-width:900px;
+    margin:auto;
 }
 
 /* CARD */
@@ -15,8 +22,7 @@ body{
     background:white;
     padding:25px;
     border-radius:15px;
-    max-width:520px;
-    margin:auto;
+    width:100%;
     box-shadow:0 8px 25px rgba(0,0,0,0.12);
 }
 
@@ -43,6 +49,7 @@ input, select{
     border-radius:8px;
     border:1px solid #ccc;
     transition:0.2s;
+    font-size:14px;
 }
 
 input:focus, select:focus{
@@ -83,11 +90,20 @@ button:hover{
     text-align:center;
     margin-top:10px;
 }
+
+/* 📱 MOBILE FIX */
+@media(max-width:600px){
+    .wrapper{
+        padding:0 5px;
+    }
+}
 </style>
 
 </head>
 
 <body>
+
+<div class="wrapper">
 
 <div class="form">
 
@@ -101,27 +117,27 @@ button:hover{
 
 <h3>Name</h3>
 <div class="lang">English</div>
-<input id="name_en" placeholder="Waterfall Name in English">
+<input id="name_en">
 
 <div class="lang">मराठी</div>
-<input id="name_mr" placeholder="धबधब्याचे नाव">
+<input id="name_mr">
 
 <div class="lang">हिंदी</div>
-<input id="name_hi" placeholder="झरने का नाम">
+<input id="name_hi">
 
 <h3>Description</h3>
 <div class="lang">English</div>
-<input id="desc_en" placeholder="Short description">
+<input id="desc_en">
 
 <div class="lang">मराठी</div>
-<input id="desc_mr" placeholder="माहिती">
+<input id="desc_mr">
 
 <div class="lang">हिंदी</div>
-<input id="desc_hi" placeholder="विवरण">
+<input id="desc_hi">
 
 <h3>Best Time</h3>
 <div class="lang">English</div>
-<input id="time_en" placeholder="Best time to visit">
+<input id="time_en">
 
 <div class="lang">मराठी</div>
 <input id="time_mr">
@@ -140,15 +156,17 @@ button:hover{
 <input id="reach_hi">
 
 <h3>Images (2 Required)</h3>
-<input id="img1" placeholder="Image URL 1 (required)">
-<input id="img2" placeholder="Image URL 2 (required)">
+<input id="img1">
+<input id="img2">
 
 <h3>Map URL</h3>
-<input id="map" placeholder="Paste Google Map Link">
+<input id="map">
 
 <button onclick="saveWaterfall()">SAVE WATERFALL</button>
 
 <p class="error" id="err"></p>
+
+</div>
 
 </div>
 
@@ -196,34 +214,12 @@ function saveWaterfall(){
     let region = get("region");
 
     let data = {
-
-        name:{
-            en:get("name_en"),
-            mr:get("name_mr"),
-            hi:get("name_hi")
-        },
-
-        description:{
-            en:get("desc_en"),
-            mr:get("desc_mr"),
-            hi:get("desc_hi")
-        },
-
-        bestTime:{
-            en:get("time_en"),
-            mr:get("time_mr"),
-            hi:get("time_hi")
-        },
-
-        howToReach:{
-            en:get("reach_en"),
-            mr:get("reach_mr"),
-            hi:get("reach_hi")
-        },
-
+        name:{ en:get("name_en"), mr:get("name_mr"), hi:get("name_hi") },
+        description:{ en:get("desc_en"), mr:get("desc_mr"), hi:get("desc_hi") },
+        bestTime:{ en:get("time_en"), mr:get("time_mr"), hi:get("time_hi") },
+        howToReach:{ en:get("reach_en"), mr:get("reach_mr"), hi:get("reach_hi") },
         imageUrl1:get("img1"),
         imageUrl2:get("img2"),
-
         mapUrl:get("map")
     };
 
@@ -236,7 +232,6 @@ function saveWaterfall(){
     });
 
 }
-
 </script>
 
 </body>
