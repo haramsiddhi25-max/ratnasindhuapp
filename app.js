@@ -1,28 +1,42 @@
 const FIREBASE_URL = "https://konkantourguide-default-rtdb.firebaseio.com";
 
 function get(id){
-    return document.getElementById(id).value.trim();
+    return document.getElementById(id)?.value.trim() || "";
+}
+
+function isValidURL(url){
+    return url.startsWith("http://") || url.startsWith("https://");
 }
 
 function validate(){
 
+    if(!get("region")){
+        alert("Select region ❗");
+        return false;
+    }
+
+    if(!get("category")){
+        alert("Select category ❗");
+        return false;
+    }
+
     if(!get("name_en")){
-        alert("Name required");
+        alert("Name required ❗");
         return false;
     }
 
-    if(!get("img1").startsWith("http")){
-        alert("Enter valid Image URL");
+    if(!isValidURL(get("img1"))){
+        alert("Enter valid Image URL ❗");
         return false;
     }
 
-    if(!get("map").startsWith("http")){
-        alert("Enter valid Map URL");
+    if(!isValidURL(get("map"))){
+        alert("Enter valid Map URL ❗");
         return false;
     }
 
     if(get("contact") && get("contact").length < 10){
-        alert("Invalid phone");
+        alert("Invalid phone number ❗");
         return false;
     }
 
@@ -33,15 +47,17 @@ function save(){
 
     if(!validate()) return;
 
-    let region = document.getElementById("region").value;
-    let cat = document.getElementById("category").value;
+    let region = get("region");
+    let cat = get("category");
 
     let data = {
+
         name:{
             en:get("name_en"),
             mr:get("name_mr"),
             hi:get("name_hi")
         },
+
         description:{
             en:get("desc_en"),
             mr:get("desc_mr"),
@@ -74,7 +90,10 @@ function save(){
     .then(res => res.json())
     .then(() => {
         alert("Saved Successfully ✅");
-        document.getElementById("form").reset();
+
+        // SAFE RESET
+        let form = document.getElementById("form");
+        if(form) form.reset();
     })
     .catch(() => {
         alert("Error saving data ❌");
