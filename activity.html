@@ -8,6 +8,13 @@ body{
     font-family:'Segoe UI', Arial;
     background: linear-gradient(135deg,#eef2f3,#dfe9f3);
     padding:20px;
+    margin:0;
+}
+
+/* MAIN WRAPPER (FIX FOR LAPTOP) */
+.wrapper{
+    max-width:900px;
+    margin:auto;
 }
 
 /* CARD */
@@ -15,8 +22,7 @@ body{
     background:white;
     padding:25px;
     border-radius:15px;
-    max-width:520px;
-    margin:auto;
+    width:100%;
     box-shadow:0 8px 25px rgba(0,0,0,0.12);
 }
 
@@ -43,6 +49,7 @@ input, select{
     border-radius:8px;
     border:1px solid #ccc;
     transition:0.2s;
+    font-size:14px;
 }
 
 input:focus, select:focus{
@@ -83,11 +90,20 @@ button:hover{
     text-align:center;
     margin-top:10px;
 }
+
+/* MOBILE RESPONSIVE */
+@media(max-width:600px){
+    .wrapper{
+        padding:0 5px;
+    }
+}
 </style>
 
 </head>
 
 <body>
+
+<div class="wrapper">
 
 <div class="form">
 
@@ -162,6 +178,8 @@ button:hover{
 <button onclick="saveActivity()">SAVE ACTIVITY</button>
 
 <p class="error" id="err"></p>
+
+</div>
 
 </div>
 
