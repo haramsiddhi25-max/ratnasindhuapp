@@ -9,12 +9,18 @@ body{
     font-family:'Segoe UI', Arial;
     background: linear-gradient(135deg,#eef2f3,#dfe9f3);
     padding:20px;
+    margin:0;
+}
+
+/* 🔥 MAIN WRAPPER FIX */
+.wrapper{
+    max-width:900px;
+    margin:auto;
 }
 
 /* CARD */
 .container{
-    max-width:650px;
-    margin:auto;
+    width:100%;
     background:white;
     padding:25px;
     border-radius:15px;
@@ -50,6 +56,7 @@ input,select{
     border-radius:8px;
     border:1px solid #ccc;
     transition:0.2s;
+    font-size:14px;
 }
 
 input:focus, select:focus{
@@ -89,11 +96,20 @@ button:hover{
     text-align:center;
     margin-top:10px;
 }
+
+/* 📱 MOBILE FIX */
+@media(max-width:600px){
+    .wrapper{
+        padding:0 5px;
+    }
+}
 </style>
 
 </head>
 
 <body>
+
+<div class="wrapper">
 
 <div class="container">
 
@@ -113,17 +129,17 @@ button:hover{
 <input id="name_en" placeholder="Hotel Name in English">
 
 <div class="lang">मराठी</div>
-<input id="name_mr" placeholder="हॉटेलचे नाव">
+<input id="name_mr">
 
 <div class="lang">हिंदी</div>
-<input id="name_hi" placeholder="होटल का नाम">
+<input id="name_hi">
 </div>
 
 <div class="section">
 <label>About</label>
 
 <div class="lang">English</div>
-<input id="about_en" placeholder="Short description">
+<input id="about_en">
 
 <div class="lang">मराठी</div>
 <input id="about_mr">
@@ -136,7 +152,7 @@ button:hover{
 <label>Facilities</label>
 
 <div class="lang">English</div>
-<input id="fac_en" placeholder="AC, WiFi, Parking...">
+<input id="fac_en">
 
 <div class="lang">मराठी</div>
 <input id="fac_mr">
@@ -173,30 +189,32 @@ button:hover{
 
 <div class="section">
 <label>Contact</label>
-<input id="contact" placeholder="Phone number">
+<input id="contact">
 
 <label>WhatsApp</label>
-<input id="whatsapp" placeholder="WhatsApp number">
+<input id="whatsapp">
 
 <label>Rating</label>
-<input id="rating" placeholder="0 - 5">
+<input id="rating">
 </div>
 
 <div class="section">
 <label>Images</label>
-<input id="img1" placeholder="Main Image URL (required)">
-<input id="img2" placeholder="Optional">
-<input id="img3" placeholder="Optional">
+<input id="img1">
+<input id="img2">
+<input id="img3">
 </div>
 
 <div class="section">
 <label>Map URL</label>
-<input id="map" placeholder="Paste Google Map Link">
+<input id="map">
 </div>
 
 <button onclick="saveHotel()">SAVE HOTEL</button>
 
 <div id="error"></div>
+
+</div>
 
 </div>
 
@@ -254,45 +272,17 @@ function saveHotel(){
     let region=get("region");
 
     let data={
-
-        name:{
-            en:get("name_en"),
-            mr:get("name_mr"),
-            hi:get("name_hi")
-        },
-
-        about:{
-            en:get("about_en"),
-            mr:get("about_mr"),
-            hi:get("about_hi")
-        },
-
-        facilities:{
-            en:get("fac_en"),
-            mr:get("fac_mr"),
-            hi:get("fac_hi")
-        },
-
-        howToReach:{
-            en:get("reach_en"),
-            mr:get("reach_mr"),
-            hi:get("reach_hi")
-        },
-
-        location:{
-            en:get("loc_en"),
-            mr:get("loc_mr"),
-            hi:get("loc_hi")
-        },
-
+        name:{ en:get("name_en"), mr:get("name_mr"), hi:get("name_hi") },
+        about:{ en:get("about_en"), mr:get("about_mr"), hi:get("about_hi") },
+        facilities:{ en:get("fac_en"), mr:get("fac_mr"), hi:get("fac_hi") },
+        howToReach:{ en:get("reach_en"), mr:get("reach_mr"), hi:get("reach_hi") },
+        location:{ en:get("loc_en"), mr:get("loc_mr"), hi:get("loc_hi") },
         contact:get("contact"),
         whatsapp:get("whatsapp"),
         rating:get("rating"),
-
         imageUrl1:get("img1"),
         imageUrl2:get("img2"),
         imageUrl3:get("img3"),
-
         mapUrl:get("map")
     };
 
