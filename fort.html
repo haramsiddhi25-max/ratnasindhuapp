@@ -9,6 +9,13 @@ body{
     font-family:'Segoe UI';
     background: linear-gradient(135deg,#f3e7e9,#e3eeff);
     padding:20px;
+    margin:0;
+}
+
+/* 🔥 MAIN WRAPPER FIX */
+.wrapper{
+    max-width:900px;
+    margin:auto;
 }
 
 /* CARD */
@@ -16,8 +23,7 @@ body{
     background:white;
     padding:25px;
     border-radius:15px;
-    max-width:650px;
-    margin:auto;
+    width:100%;
     box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
@@ -48,6 +54,7 @@ input, select{
     margin-top:5px;
     border-radius:8px;
     border:1px solid #ccc;
+    font-size:14px;
 }
 
 /* HELP TEXT */
@@ -73,6 +80,7 @@ button{
     margin-top:20px;
     border-radius:10px;
     font-size:16px;
+    cursor:pointer;
 }
 
 .error{
@@ -80,17 +88,25 @@ button{
     text-align:center;
     margin-top:10px;
 }
+
+/* 📱 MOBILE FIX */
+@media(max-width:600px){
+    .wrapper{
+        padding:0 5px;
+    }
+}
 </style>
 
 </head>
 
 <body>
 
+<div class="wrapper">
+
 <div class="form">
 
 <h2>🏰 Add Fort (किल्ला जोडा / किला जोड़ें)</h2>
 
-<!-- REGION -->
 <label>Region (प्रदेश / क्षेत्र)</label>
 <select id="region">
 <option value="">Select Region</option>
@@ -99,7 +115,6 @@ button{
 </select>
 <small>Select where this fort belongs</small>
 
-<!-- NAME -->
 <div class="section">
 <label>List Name</label>
 
@@ -107,15 +122,12 @@ button{
 <input id="name_en" placeholder="e.g. Ratnadurg Fort">
 
 <div class="lang-title">मराठी</div>
-<input id="name_mr" placeholder="उदा. रत्नदुर्ग किल्ला">
+<input id="name_mr">
 
 <div class="lang-title">हिंदी</div>
-<input id="name_hi" placeholder="उदा. रत्नदुर्ग किला">
-
-<small>This appears in list page</small>
+<input id="name_hi">
 </div>
 
-<!-- TITLE -->
 <div class="section">
 <label>Title (Detail Page)</label>
 
@@ -129,12 +141,11 @@ button{
 <input id="title_hi">
 </div>
 
-<!-- ABOUT -->
 <div class="section">
 <label>About / Description</label>
 
 <div class="lang-title">English</div>
-<input id="about_en" placeholder="History / overview">
+<input id="about_en">
 
 <div class="lang-title">मराठी</div>
 <input id="about_mr">
@@ -143,7 +154,6 @@ button{
 <input id="about_hi">
 </div>
 
-<!-- TIMINGS -->
 <div class="section">
 <label>Timings</label>
 
@@ -157,7 +167,6 @@ button{
 <input id="time_hi">
 </div>
 
-<!-- DIRECTIONS -->
 <div class="section">
 <label>Directions</label>
 
@@ -171,7 +180,6 @@ button{
 <input id="dir_hi">
 </div>
 
-<!-- FOOD -->
 <div class="section">
 <label>Food</label>
 
@@ -185,7 +193,6 @@ button{
 <input id="food_hi">
 </div>
 
-<!-- STAY -->
 <div class="section">
 <label>Stay</label>
 
@@ -199,14 +206,12 @@ button{
 <input id="stay_hi">
 </div>
 
-<!-- IMAGES -->
 <div class="section">
 <label>Images</label>
 <input id="img1" placeholder="Main image URL (required)">
 <input id="img2" placeholder="Second image URL">
 </div>
 
-<!-- MAP -->
 <div class="section">
 <label>Map URL</label>
 <input id="map" placeholder="Google Maps link">
@@ -215,6 +220,8 @@ button{
 <button onclick="saveFort()">SAVE FORT</button>
 
 <p class="error" id="err"></p>
+
+</div>
 
 </div>
 
