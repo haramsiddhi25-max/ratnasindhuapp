@@ -1,125 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ratnasindhu Admin</title>
+<title>Konkan Tourism Admin</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
-/* BODY */
-body{
+/* RESET */
+*{
+    box-sizing:border-box;
     margin:0;
-    font-family:'Segoe UI';
-    background:#f8fafc;
+    padding:0;
+}
+
+body{
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#e3f2fd,#fce4ec);
 }
 
 /* HEADER */
 .header{
-    background: linear-gradient(90deg,#2563eb,#4f46e5);
+    background:#0d6efd;
     color:white;
-    padding:14px;
+    padding:15px;
     text-align:center;
     font-size:20px;
-    font-weight:600;
     position:relative;
 }
 
 .logout{
     position:absolute;
-    right:15px;
+    right:10px;
     top:10px;
-    background:#ef4444;
-    border:none;
+    background:#dc3545;
     color:white;
-    padding:5px 10px;
-    border-radius:6px;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
 }
 
 /* GRID */
 .grid{
     display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
-    padding:12px;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:15px;
 }
 
-/* CARDS */
+/* CARD */
 .card{
-    padding:14px;
-    border-radius:14px;
-    color:white;
-    text-align:center;
-    font-size:14px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* COLORS */
-.c1{background:linear-gradient(135deg,#34d399,#10b981);}
-.c2{background:linear-gradient(135deg,#a78bfa,#7c3aed);}
-.c3{background:linear-gradient(135deg,#60a5fa,#2563eb);}
-.c4{background:linear-gradient(135deg,#fbbf24,#f59e0b);}
-.c5{background:linear-gradient(135deg,#fb7185,#e11d48);}
-.c6{background:linear-gradient(135deg,#f472b6,#db2777);}
-.c7{background:linear-gradient(135deg,#22d3ee,#06b6d4);}
-
-.card h1{
-    margin:6px 0;
-    font-size:22px;
-}
-
-/* PANEL */
-.panel{
     background:white;
-    padding:14px;
-    border-radius:14px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* BUTTON GRID */
-.btn-grid{
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    gap:8px;
-}
-
-/* BUTTON */
-.btn{
-    padding:9px;
-    border:none;
-    border-radius:8px;
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
-    color:white;
-    font-size:13px;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
     transition:0.2s;
 }
 
-.btn:hover{
-    transform:scale(1.05);
+.card:hover{
+    transform:translateY(-3px);
 }
 
-/* DATA */
-.item{
-    padding:7px;
-    border-bottom:1px solid #e2e8f0;
-    font-size:13px;
-}
+/* COLORS */
+.green{background:#4CAF50;color:white;}
+.blue{background:#2196F3;color:white;}
+.orange{background:#FF9800;color:white;}
 
-.delete{
-    float:right;
-    background:#ef4444;
-    color:white;
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
     border:none;
-    border-radius:4px;
-    padding:2px 6px;
+    background:#0d6efd;
+    color:white;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.btn:hover{
+    background:#084298;
 }
 
 /* FEEDBACK */
 .feedback{
-    background:#f1f5f9;
-    padding:8px;
-    margin-top:6px;
-    border-radius:8px;
-    font-size:13px;
+    border-left:4px solid #0d6efd;
+    padding:10px;
+    margin-top:10px;
+    background:#f9f9f9;
+    border-radius:6px;
+}
+
+/* MOBILE FIX */
+@media(max-width:500px){
+    .header{
+        font-size:16px;
+    }
 }
 
 </style>
@@ -128,156 +103,151 @@ body{
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-🌴 Ratnasindhu Admin
+Konkan Tourism Admin Dashboard
 <button class="logout" onclick="logout()">Logout</button>
 </div>
 
 <!-- STATS -->
 <div class="grid">
-<div class="card c1"><h3>Places</h3><h1 id="placesCount">0</h1></div>
-<div class="card c2"><h3>Activities</h3><h1 id="activityCount">0</h1></div>
-<div class="card c3"><h3>Hotels</h3><h1 id="hotelCount">0</h1></div>
-<div class="card c4"><h3>Business</h3><h1 id="businessCount">0</h1></div>
-<div class="card c5"><h3>Users</h3><h1 id="userCount">0</h1></div>
-<div class="card c6"><h3>Feedback</h3><h1 id="totalFeedback">0</h1></div>
-<div class="card c7"><h3>Rating</h3><h1 id="avgRating">0</h1></div>
+
+<div class="card green">
+<h3>🌍 Total Places</h3>
+<h1 id="totalPlaces">0</h1>
 </div>
 
-<!-- MANAGE -->
-<div class="grid">
-<div class="panel">
-<h3>Manage Data</h3>
+<div class="card blue">
+<h3>⭐ Avg Rating</h3>
+<h1 id="avgRating">0</h1>
+</div>
 
-<div class="btn-grid">
+<div class="card orange">
+<h3>💬 Feedback</h3>
+<h1 id="totalFeedback">0</h1>
+</div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="grid">
+
+<div class="card">
+<h3>📍 Tourism Places</h3>
+
 <button class="btn" onclick="go('beach.html')">Beaches</button>
 <button class="btn" onclick="go('temple.html')">Temples</button>
 <button class="btn" onclick="go('fort.html')">Forts</button>
 <button class="btn" onclick="go('waterfall.html')">Waterfalls</button>
-<button class="btn" onclick="go('activity.html')">Activities</button>
-<button class="btn" onclick="go('hotel.html')">Hotels</button>
-<button class="btn" onclick="go('business.html')">Business</button>
 </div>
 
-</div>
+<div class="card">
+<h3>🎯 Activities</h3>
+<button class="btn" onclick="go('activity.html')">Manage Activities</button>
 </div>
 
-<!-- DATA -->
-<div class="grid">
-<div class="panel">
-<h3>All Data</h3>
-<div id="allData"></div>
+<div class="card">
+<h3>🏨 Hotels</h3>
+<button class="btn" onclick="go('hotel.html')">Manage Hotels</button>
 </div>
+
+<div class="card">
+<h3>🏪 Business</h3>
+<button class="btn" onclick="go('business.html')">Manage Business</button>
+</div>
+
+<div class="card">
+<h3>🤖 Chatbot</h3>
+<button class="btn" onclick="go('chatbot.html')">Manage Q&A</button>
+</div>
+
+<div class="card">
+<h3>💰 Budget Planner</h3>
+<button class="btn" onclick="go('budget.html')">Manage Budget</button>
+</div>
+
 </div>
 
 <!-- FEEDBACK -->
 <div class="grid">
-<div class="panel">
-<h3>Feedback</h3>
-<div id="feedbackList"></div>
+
+<div class="card">
+<h3>Recent Feedback</h3>
+<div id="feedbackList">Loading...</div>
 </div>
+
 </div>
 
 <script>
 
+const FIREBASE = "https://konkantourguide-default-rtdb.firebaseio.com";
+
+/* AUTH CHECK */
 if(localStorage.getItem("admin") !== "true"){
-    window.location.href="login.html";
+    window.location.href = "login.html";
 }
 
+/* LOGOUT */
 function logout(){
     localStorage.removeItem("admin");
-    window.location.href="login.html";
+    window.location.href = "login.html";
 }
 
-function go(p){ window.location=p; }
+/* NAVIGATION */
+function go(page){
+    window.location.href = page;
+}
 
-// STATIC
-let staticData = { places:40, activities:10, hotels:10, business:10 };
+/* LOAD FEEDBACK */
+fetch(FIREBASE + "/feedback.json")
+.then(res => res.json())
+.then(data => {
 
-// COUNTS
-fetch("https://konkantourguide-default-rtdb.firebaseio.com/Places.json")
-.then(r=>r.json())
-.then(data=>{
-    let places=0, act=0, hotel=0, business=0;
+    let html="";
+    let total=0;
+    let count=0;
 
-    if(data){
-        for(let region in data){
-            if(data[region].beaches) places += Object.keys(data[region].beaches).length;
-            if(data[region].temples) places += Object.keys(data[region].temples).length;
-            if(data[region].forts) places += Object.keys(data[region].forts).length;
-            if(data[region].waterfalls) places += Object.keys(data[region].waterfalls).length;
-            if(data[region].activities) act += Object.keys(data[region].activities).length;
-            if(data[region].hotels) hotel += Object.keys(data[region].hotels).length;
-            if(data[region].businesses) business += Object.keys(data[region].businesses).length;
-        }
-    }
+    for(let key in data){
 
-    document.getElementById("placesCount").innerText = staticData.places + places;
-    document.getElementById("activityCount").innerText = staticData.activities + act;
-    document.getElementById("hotelCount").innerText = staticData.hotels + hotel;
-    document.getElementById("businessCount").innerText = staticData.business + business;
-});
+        total += data[key].rating;
+        count++;
 
-// USERS
-fetch("https://konkantourguide-default-rtdb.firebaseio.com/users.json")
-.then(r=>r.json())
-.then(data=>{
-    document.getElementById("userCount").innerText = data ? Object.keys(data).length : 5;
-});
-
-// FEEDBACK
-fetch("https://konkantourguide-default-rtdb.firebaseio.com/feedback.json")
-.then(r=>r.json())
-.then(data=>{
-    let html="", total=0, count=0;
-
-    if(data){
-        for(let k in data){
-            total += data[k].rating;
-            count++;
-            html += `<div class="feedback">⭐ ${data[k].rating}<br>${data[k].comment}</div>`;
-        }
+        html += `
+        <div class="feedback">
+            ⭐ ${data[key].rating}<br>
+            💬 ${data[key].comment}
+        </div>`;
     }
 
     document.getElementById("feedbackList").innerHTML = html;
     document.getElementById("totalFeedback").innerText = count;
-    document.getElementById("avgRating").innerText = count ? (total/count).toFixed(1) : 0;
+
+    let avg = count ? (total/count).toFixed(1) : 0;
+    document.getElementById("avgRating").innerText = avg + " ⭐";
 });
 
-// DATA
-fetch("https://konkantourguide-default-rtdb.firebaseio.com/Places.json")
-.then(r=>r.json())
-.then(data=>{
-    let html="";
+/* TOTAL PLACES */
+fetch(FIREBASE + "/Places.json")
+.then(res => res.json())
+.then(data => {
+
+    let count=0;
+
+    let categories=[
+        "beaches","temples","waterfalls","forts",
+        "activities","hotels","businesses"
+    ];
 
     for(let region in data){
-        html += `<h4>${region}</h4>`;
-
-        for(let category in data[region]){
-            html += `<b>${category}</b>`;
-
-            for(let key in data[region][category]){
-                let name = data[region][category][key].name?.en || "No name";
-
-                html += `
-                <div class="item">
-                    ${name}
-                    <button class="delete" onclick="deleteItem('${region}','${category}','${key}')">X</button>
-                </div>`;
+        for(let cat of categories){
+            if(data[region][cat]){
+                count += Object.keys(data[region][cat]).length;
             }
         }
     }
 
-    document.getElementById("allData").innerHTML = html;
+    document.getElementById("totalPlaces").innerText = count;
 });
-
-function deleteItem(region,category,key){
-    if(!confirm("Delete?")) return;
-
-    fetch(`https://konkantourguide-default-rtdb.firebaseio.com/Places/${region}/${category}/${key}.json`,{
-        method:"DELETE"
-    }).then(()=>location.reload());
-}
 
 </script>
 
